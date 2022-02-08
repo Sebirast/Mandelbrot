@@ -1,0 +1,3 @@
+/Users/sebastianrast/Documents/Code/Mandelbrot/build/CMakeFiles/Mandelbrot.dir
+/Users/sebastianrast/Documents/Code/Mandelbrot/build/CMakeFiles/edit_cache.dir
+/Users/sebastianrast/Documents/Code/Mandelbrot/build/CMakeFiles/rebuild_cache.dir
