@@ -32,10 +32,10 @@ unsigned char* mandelBrotSet(const unsigned int& height, const unsigned int& wid
                 if(abs(c) >= 2)
                 {
                     isInSet = true;
-                    // std::cout << i << std::endl;
                     break;
                 }
             }
+
             if(isInSet)
             {
                 mandelBrotSet[y][x][0] = 0;     // red
@@ -48,30 +48,26 @@ unsigned char* mandelBrotSet(const unsigned int& height, const unsigned int& wid
                 mandelBrotSet[y][x][1] = 0;
                 mandelBrotSet[y][x][2] = 0;
             }
+
         }
     }
-    return (unsigned char * )mandelBrotSet;
+    return (unsigned char *)mandelBrotSet;
 }
 
 int main ()
 {
-    // int height = 361;
-    // int width = 867;
-    // unsigned char image[height][width][BYTES_PER_PIXEL];
-    // char* imageFileName = (char*) "bitmapImage.bmp";
-
-    // int i, j;
-    // for (i = 0; i < height; i++) {
-    //     for (j = 0; j < width; j++) {
-    //         image[i][j][2] = (unsigned char) ( i * 255 / height );             ///red
-    //         image[i][j][1] = (unsigned char) ( j * 255 / width );              ///green
-    //         image[i][j][0] = (unsigned char) ( (i+j) * 255 / (height+width) ); ///blue
-    //     }
-    // }
-
     int height = 1000;
     int width = 1000;
+    
+    auto startTime = std::chrono::system_clock::now();
+    
     generateBitmapImage(mandelBrotSet(height, width, 1000), height, width, "mandelBrotSet.bmp");
+
+    auto endTime = std::chrono::system_clock::now();
+    std::chrono::duration<double> duration = endTime - startTime;
+
+    std::cout << duration.count() << std::endl;
+
     // generateBitmapImage((unsigned char*) image, height, width, imageFileName);
     printf("Image generated!!");
 }
