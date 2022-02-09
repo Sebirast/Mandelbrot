@@ -1,6 +1,7 @@
 {
     "C_Cpp.errorSquiggles": "Disabled",
     "files.associations": {
-        "cstdio": "cpp"
+        "cstdio": "cpp",
+        "complex": "cpp"
     }
 }

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <iostream>
+#include <complex>
 
 const int BYTES_PER_PIXEL = 3; /// red, green, & blue
 const int FILE_HEADER_SIZE = 14;
@@ -9,27 +10,69 @@ void generateBitmapImage(unsigned char* image, int height, int width, char* imag
 unsigned char* createBitmapFileHeader(int height, int stride);
 unsigned char* createBitmapInfoHeader(int height, int width);
 
-unsigned char* mandelBrotSet(const unsigned int height, const unsigned int width, const iterations)
+double map(double x, double in_min, double in_max, double out_min, double out_max) {
+  return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
+
+unsigned char* mandelBrotSet(const unsigned int& height, const unsigned int& width, const int& iterations)
 {
+    unsigned char mandelBrotSet[width][height][3];
+    for(int x = 0; x < width; x++)
+    {
+        for(int y = 0; y < height; y++)
+        {
+            std::complex<double> c(map((double)x, (double)0, (double)width, -2.0, 1), map((double)y, (double)0, (double)height, -1.5, 1.5));
+            std::complex<double> oldc = c;
+
+            bool isInSet = false;
+
+            for(int i = 0; i < iterations; i++)
+            {
+                c = pow(c, 2) + oldc;
+                if(abs(c) >= 2)
+                {
+                    isInSet = true;
+                    // std::cout << i << std::endl;
+                    break;
+                }
+            }
+            if(isInSet)
+            {
+                mandelBrotSet[y][x][0] = 0;     // red
+                mandelBrotSet[y][x][1] = 0;     // green 
+                mandelBrotSet[y][y][2] = 0;     // blue 
+            }
+            else 
+            {
+                mandelBrotSet[y][x][0] = 255;
+                mandelBrotSet[y][x][1] = 0;
+                mandelBrotSet[y][x][2] = 0;
+            }
+        }
+    }
+    return (unsigned char * )mandelBrotSet;
 }
 
 int main ()
 {
-    int height = 361;
-    int width = 867;
-    unsigned char image[height][width][BYTES_PER_PIXEL];
-    char* imageFileName = (char*) "bitmapImage.bmp";
+    // int height = 361;
+    // int width = 867;
+    // unsigned char image[height][width][BYTES_PER_PIXEL];
+    // char* imageFileName = (char*) "bitmapImage.bmp";
 
-    int i, j;
-    for (i = 0; i < height; i++) {
-        for (j = 0; j < width; j++) {
-            image[i][j][2] = (unsigned char) ( i * 255 / height );             ///red
-            image[i][j][1] = (unsigned char) ( j * 255 / width );              ///green
-            image[i][j][0] = (unsigned char) ( (i+j) * 255 / (height+width) ); ///blue
-        }
-    }
+    // int i, j;
+    // for (i = 0; i < height; i++) {
+    //     for (j = 0; j < width; j++) {
+    //         image[i][j][2] = (unsigned char) ( i * 255 / height );             ///red
+    //         image[i][j][1] = (unsigned char) ( j * 255 / width );              ///green
+    //         image[i][j][0] = (unsigned char) ( (i+j) * 255 / (height+width) ); ///blue
+    //     }
+    // }
 
-    generateBitmapImage((unsigned char*) image, height, width, imageFileName);
+    int height = 1000;
+    int width = 1000;
+    generateBitmapImage(mandelBrotSet(height, width, 1000), height, width, "mandelBrotSet.bmp");
+    // generateBitmapImage((unsigned char*) image, height, width, imageFileName);
     printf("Image generated!!");
 }
 

@@ -6,7 +6,7 @@
 			[
 				{
 					"build" : ".",
-					"jsonFile" : "directory-.-f5ebdc15457944623624.json",
+					"jsonFile" : "directory-.-Release-f5ebdc15457944623624.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.22"
@@ -19,7 +19,7 @@
 					]
 				}
 			],
-			"name" : "",
+			"name" : "Release",
 			"projects" : 
 			[
 				{
@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "Mandelbrot::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-Mandelbrot-7ee6a507011342995f9e.json",
+					"jsonFile" : "target-Mandelbrot-Release-de5984eff81e9181f803.json",
 					"name" : "Mandelbrot",
 					"projectIndex" : 0
 				}
