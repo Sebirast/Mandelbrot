@@ -14,15 +14,26 @@ double map(double x, double in_min, double in_max, double out_min, double out_ma
   return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
 
+// bool isBlack(unsigned char[][][] set) 
+// {
+
+// }
+
+// bool isColored(unsigned [][][] set) 
+// {
+// }
+
 unsigned char* mandelBrotSet(const unsigned int& height, const unsigned int& width, const int& iterations)
 {
     unsigned char mandelBrotSet[width][height][3];
+    std::complex<double> c;
+    std::complex<double> oldc = c;
     for(int x = 0; x < width; x++)
     {
         for(int y = 0; y < height; y++)
         {
-            std::complex<double> c(map((double)x, (double)0, (double)width, -2.0, 1), map((double)y, (double)0, (double)height, -1.5, 1.5));
-            std::complex<double> oldc = c;
+            c = std::complex<double>(map((double)x, (double)0, (double)width, -2.0, 1), map((double)y, (double)0, (double)height, -1.5, 1.5));
+            oldc = c;
 
             bool isInSet = false;
 
@@ -38,19 +49,26 @@ unsigned char* mandelBrotSet(const unsigned int& height, const unsigned int& wid
 
             if(isInSet)
             {
-                mandelBrotSet[y][x][0] = 0;     // red
-                mandelBrotSet[y][x][1] = 0;     // green 
-                mandelBrotSet[y][y][2] = 0;     // blue 
+                mandelBrotSet[y][x][0] = 255;     // blue
+                mandelBrotSet[y][x][1] = 0;     // green  
+                mandelBrotSet[y][x][2] = 0;     // red 
             }
             else 
             {
-                mandelBrotSet[y][x][0] = 255;
+                mandelBrotSet[y][x][0] = 0;
                 mandelBrotSet[y][x][1] = 0;
                 mandelBrotSet[y][x][2] = 0;
             }
-
         }
     }
+
+    // for(int i = 0; i < height; i++)
+    // {
+    //     for(int o = 0; o < width; i++)
+    //     {
+    //         if(isBlack(mandelBrotSet[][][]))
+    //     }
+    // }
     return (unsigned char *)mandelBrotSet;
 }
 
@@ -68,7 +86,6 @@ int main ()
 
     std::cout << duration.count() << std::endl;
 
-    // generateBitmapImage((unsigned char*) image, height, width, imageFileName);
     printf("Image generated!!");
 }
 
